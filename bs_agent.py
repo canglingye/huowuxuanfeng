@@ -42,7 +42,8 @@ class bsAgent:
             data_list.append(res.get_row_data())
         df_data = pd.DataFrame(data_list, columns=res.fields)
         df_data.set_index(["date"], inplace=True)
-        df_data[['low','high','close']] = df_data[['low','high','close']].astype(float)
+        df_data.index=pd.to_datetime(df_data.index)
+        df_data[['low','high','open','close','volume']] = df_data[['low','high','open','close','volume']].astype(float)
         self._k_data = df_data
         self._k_data_plus = df_data
     def trade(self, trade, price):
@@ -54,7 +55,7 @@ class bsAgent:
             self.k_data_plus[['assets']].plot(title='assets',figsize=(30, 6.5))
         if indicator is Indicator.MACD_X:
             self.k_data_plus[['close']].plot(title='close',figsize=(30, 6.5))
-            ax = self.k_data_plus[['dif','dea','hist']].plot(title='KDJ',figsize=(30, 6.5))
+            ax = self.k_data_plus[['dif','dea','hist']].plot(title='MACD',figsize=(30, 6.5))
             ax.axhline(y=0)
             self.k_data_plus[['assets']].plot(title='assets',figsize=(30, 6.5))
         plt.show()
