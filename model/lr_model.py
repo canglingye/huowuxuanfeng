@@ -132,4 +132,3 @@ with open(target_stock_model_save_path, "wb") as foutpput:
 
 with open(target_stock_model_save_path, "rb") as finput:
     lr_model = pickle.load(finput)
-    # print(lr_model.coef_, lr_model.intercept_)
